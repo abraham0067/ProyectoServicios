@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Build and Analize') {
             steps {
-                dir('microservicio-service/'){
+                dir('Curso-Microservicios/'){
                     echo 'Execute Maven and Analizing with SonarServer'
                     withSonarQubeEnv('SonarServer') {
                         sh "mvn clean package sonar:sonar \
