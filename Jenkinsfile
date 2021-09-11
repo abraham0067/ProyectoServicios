@@ -21,12 +21,17 @@ pipeline {
         }
         stage('Container Build') {
             steps {
-                dir('Curso-Microserviciosv/'){
-                    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub_id  ', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+                dir('Curso-Microservicios/'){
+                    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub_id', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
                         sh 'docker login -u $USERNAME -p $PASSWORD'
                         sh 'docker build -t microservicio-service .'
                     }
                 }
+            }
+        }
+        stage('Container Run') {
+            steps {
+                sh 'docker run -d -p 8090:8090 microservicio-service'
             }
         }
     }
