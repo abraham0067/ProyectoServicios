@@ -84,5 +84,23 @@ pipeline {
                 sh 'docker push ${LOCAL_SERVER}:8083/repository/docker-private/microservicio_nexus:dev'
             }
         }
+        stage('Testing') {
+            steps {
+                dir('cypress/') {
+                    sh 'docker run --rm --name Cypress -v "C:\Users\Abraham\Documents\INTELLIJ\DIPLOMADO MICROSERVICIOS Y DEVOPS\MI_RAMA\EcosistemaJenkins\jenkins_home\workspace\Pruebas\cypress:/e2e" -w /e2e -e Cypress cypress/included:3.4.0'
+                }
+            }
+        }
+        stage('tar videos') 
+        {
+            steps 
+            {
+                dir('cypress/cypress/videos/') {
+                    sh 'tar -cvf videos.tar .'
+                    archiveArtifacts artifacts: 'videos.tar',
+                    allowEmptyArchive: true
+                }
+            }
+        }
     }
 }
