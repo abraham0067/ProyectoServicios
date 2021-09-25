@@ -12,7 +12,7 @@ pipeline {
                 dir('Curso-Microservicios/'){
                     echo 'Execute Maven and Analizing with SonarServer'
                     withSonarQubeEnv('SonarServer') {
-                        sh "mvn clean package"
+                        sh "mvn clean package sonar:sonar" 
                         
                         /*
                         sh "mvn clean package dependency-check:check sonar:sonar \
