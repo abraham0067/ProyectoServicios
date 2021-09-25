@@ -4,8 +4,8 @@ pipeline {
         LOCAL_SERVER = "192.168.100.7"
     }
     tools {
-        maven 'M3_8_2',
-        nodeJs 'NodeJs12'
+        maven 'M3_8_2'
+        nodejs 'NodeJs12'
     }
     stages {
         stage('Build and Analize') {
