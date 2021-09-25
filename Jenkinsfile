@@ -30,6 +30,15 @@ pipeline {
                 }
             }
         }
+        stage('Database') {
+            steps {
+                dir('liquibase/'){
+                    sh '/opt/liquibase/liquibase --version'
+                    sh '/opt/liquibase/liquibase --changeLogFile="changesets/db.changelog-master.xml" update'
+                    echo 'Applying Db changes'
+                }
+            }
+        }
         stage('Container Build') {
             steps {
                 dir('Curso-Microservicios/'){
@@ -53,7 +62,8 @@ pipeline {
             steps {
                 sh 'docker stop microservicio-one || true'
                 //sh 'docker run -d --rm --name microservicio-one  -p 8090:8090 microservicio-service'
-                sh 'docker run -d --rm --name microservicio-one -p 8090:8090 ${LOCAL_SERVER}:8083/repository/docker-private/microservicio_nexus:dev'
+                //sh 'docker run -d --rm --name microservicio-one -p 8090:8090 ${LOCAL_SERVER}:8083/repository/docker-private/microservicio_nexus:dev'
+                sh 'docker run -d --rm --name microservicio-one -e SPRING_PROFILES_ACTIVE=qa -p 8090:8090 ${LOCAL_SERVER}:8083/repository/docker-private/microservicio_nexus:dev'
                 sh 'docker push ${LOCAL_SERVER}:8083/repository/docker-private/microservicio_nexus:dev'
             }
         }
