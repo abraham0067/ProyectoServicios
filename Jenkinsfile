@@ -12,13 +12,16 @@ pipeline {
                 dir('Curso-Microservicios/'){
                     echo 'Execute Maven and Analizing with SonarServer'
                     withSonarQubeEnv('SonarServer') {
-                        //sh "mvn clean package sonar:sonar \
+                        sh "mvn clean package"
+                        
+                        /*
                         sh "mvn clean package dependency-check:check sonar:sonar \
                             -Dsonar.projectKey=21_MyCompany_Microservice \
                             -Dsonar.projectName=21_MyCompany_Microservice \
                             -Dsonar.sources=src/main \
-                            -Dsonar.coverage.exclusions=**/*TO.java,**/*DO.java,**/curso/web/**/*,**/curso/persistence/**/*,**/curso/commons/**/*,**/curso/model/**/* \
+                            
                             -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml"
+                            */
                     }
                 }
             }
